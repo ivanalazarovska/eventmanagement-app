@@ -1,0 +1,141 @@
+<div *ngIf="event; else notFound" class="event-details-wrapper">
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <img class="hero-img" [src]="event.imageUrl" alt="{{ event.name }}">
+    <div class="hero-overlay">
+      <h1>{{ event.name }}</h1>
+      <p>{{ event.type }}</p>
+      <div class="chips">
+        <span class="chip type">{{ event.type }}</span>
+        <span class="chip" [ngClass]="event.status.toLowerCase()" *ngIf="event.numParticipants < event.capacity">{{ event.status }}</span>
+        <span class="chip booked" [ngClass]="event.status.toLowerCase()" *ngIf="event.numParticipants >= event.capacity">{{ eventStatuses.BOOKED }}</span>
+        <span class="chip">⭐  {{ event.averageRating }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Description -->
+  <section class="description">
+    <h2>About This Event</h2>
+    <p>{{ event.description }}</p>
+  </section>
+
+  <!-- Key Info Grid -->
+  <section class="key-info">
+    <div class="info-box" *ngIf="event">
+      <h3>Date & Time</h3>
+
+      <ng-container *ngIf="isSameDay(event.startTime, event.endTime); else multiDayInfo">
+        <p>{{ event.startTime | date: 'MMM d, yyyy' }}</p>
+        <p>{{ event.startTime | date: 'h:mm a' }} - {{ event.endTime | date: 'h:mm a' }}</p>
+      </ng-container>
+
+      <ng-template #multiDayInfo>
+        <p>startTime: {{ event.startTime | date: 'MMM d, yyyy, h:mm a' }}</p>
+        <p>endTime: {{ event.endTime | date: 'MMM d, yyyy, h:mm a' }}</p>
+      </ng-template>
+    </div>
+    <div class="info-box">
+      <h3>Location</h3>
+      <p>{{ event.location }}</p>
+    </div>
+    <div class="info-box">
+      <h3>Price</h3>
+      <p>\${{ event.price }}</p>
+    </div>
+    <div class="info-box">
+      <h3>Capacity</h3>
+      <p>{{ event.capacity }}</p>
+    </div>
+  </section>
+
+  <!-- Engagement Section -->
+  <section class="engagement">
+    <h2>Who's Interested?</h2>
+    <div class="engagement-stats">
+      <div class="stat">
+        <span class="icon going">✔️</span>
+        <div>
+          <p class="label">Going</p>
+          <p class="value">{{ event.going }}</p>
+        </div>
+      </div>
+      <div class="stat">
+        <span class="icon interested">⭐</span>
+        <div>
+          <p class="label">Interested</p>
+          <p class="value">{{ event.interested }}</p>
+        </div>
+      </div>
+      <div class="stat">
+        <span class="icon declined">❌</span>
+        <div>
+          <p class="label">Declined</p>
+          <p class="value">{{ event.declined }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Action Buttons -->
+<section class="action-buttons">
+  <h2>Your Response</h2>
+  <div class="button-group">
+    <button (click)="respond(participationStatuse.GOING)" [class.active]="userResponse === participationStatuse.GOING" class="btn going" [disabled]="event.capacity == event.numParticipants">
+      ✔️ Going? Register for the event!
+    </button>
+    <button (click)="respond(participationStatuse.INTERESTED)" [class.active]="userResponse === participationStatuse.INTERESTED" class="btn interested" [disabled]="event.capacity == event.numParticipants">
+      ⭐ Interested
+    </button>
+    <button (click)="respond(participationStatuse.DECLINED)" [class.active]="userResponse === participationStatuse.DECLINED" class="btn declined" [disabled]="event.capacity == event.numParticipants">
+      ❌ Decline
+    </button>
+  </div>
+</section>
+
+<!-- Event Rating -->
+<div class="rating-box">
+  <h3>Rating</h3>
+  <div class="stars">
+    <ng-container *ngFor="let star of [1,2,3,4,5]">
+      <span
+        (click)="addRating(star)"
+        (mouseenter)="hoveredRating = star"
+        (mouseleave)="hoveredRating = 0"
+        [class.filled]="star <= (hoveredRating || selectedRating || event.averageRating || 0)"
+        style="cursor: pointer;"
+      >
+        ★
+      </span>
+    </ng-container>
+    <span class="average">
+      ({{ (selectedRating || event.averageRating || 0) | number:'1.1-1' }})
+    </span>
+  </div>
+</div>
+
+
+<!-- Comment Section -->
+<section class="comments">
+  <h2>Comments</h2>
+
+  <!-- Comment Form -->
+  <form (submit)="addComment()" #commentForm="ngForm">
+    <textarea [(ngModel)]="newComment" name="comment" placeholder="Add a comment..." required></textarea>
+    <button type="submit" [disabled]="!newComment.trim()">Post</button>
+  </form>
+
+  <!-- Comment List -->
+  <div class="comment-list">
+    <div class="comment" *ngFor="let comment of event?.comments">
+      <p class="user">🗣️ {{ comment.username || 'Anonymous' }}</p>
+      <p class="text">{{ comment.text }}</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<ng-template #notFound>
+  <div class="not-found">Event not found.</div>
+</ng-template>

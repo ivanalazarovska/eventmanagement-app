@@ -1,0 +1,105 @@
+<div class="action-buttons">
+  <button mat-raised-button color="primary" (click)="openCreateEvent()">Create Event</button>
+</div>
+
+<!-- Carousel inserted here -->
+<div class="my-4">
+  <carousel [itemsPerSlide]="1" [interval]="3000" [noPause]="true" [showIndicators]="true">
+    <slide *ngFor="let event of currentEvents">
+      <img [src]="event.imageUrl" alt="event image" class="d-block w-100" style="height: 300px; object-fit: cover;">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>{{ event.name }}</h5>
+        <p>{{ event.description }}</p>
+      </div>
+    </slide>
+  </carousel>
+</div>
+
+<div>
+  <app-map></app-map>
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<div class="content">
+<app-side-filter-bar
+        [eventTypes]="eventTypes"
+        [selectedStatus]="selectedStatus"
+        [selectedEventTypes]="selectedEventTypes"
+        [selectedDate]="selectedDate"
+        (filtersChanged)="applyFilters($event)"
+></app-side-filter-bar>
+
+<mat-tab-group selectedIndex="1">
+  <mat-tab class="past-events">
+    <ng-template mat-tab-label>
+      <span class="material-symbols-outlined">
+        calendar_view_week
+      </span>
+      <div [matBadge]="pastEvents.length" matBadgeOverlap="false" class="badge">
+        <p>Past events</p>
+      </div>
+    </ng-template>
+    <div class="event-wrapper">
+      <div class="event-container">
+        <app-event-card *ngFor="let event of filteredPastEvents"
+          [event]="event" (arrowPressed)="openEventDetails($event)"
+          [canEditDelete]="event.creator.email === loggedInUserEmail"
+          (deleteEvent)="handleEventDelete($event)"
+          (editEvent)="openEditEvent($event)"
+        ></app-event-card>
+        <p *ngIf="pastEvents.length === 0" class="no-events-message">No past events found.</p>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <span class="material-symbols-outlined">
+        calendar_view_day
+      </span>
+      <div [matBadge]="todayEvents.length" matBadgeOverlap="false" class="badge">
+        <p>Today</p>
+      </div>
+    </ng-template>
+    <div class="event-wrapper">
+      <div class="event-container">
+        <app-event-card *ngFor="let event of filteredTodayEvents"
+          [event]="event"
+          [canEditDelete]="event.creator.email === loggedInUserEmail"
+          (arrowPressed)="openEventDetails($event)"
+          (deleteEvent)="handleEventDelete($event)"
+          (editEvent)="openEditEvent($event)"
+        ></app-event-card>
+        <p *ngIf="todayEvents.length === 0" class="no-events-message">No events found for today.</p>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <span class="material-symbols-outlined">
+        calendar_view_month
+      </span>
+      <div [matBadge]="upcomingEvents.length" matBadgeOverlap="false" class="badge">
+        <p>Upcoming Events</p>
+      </div>
+    </ng-template>
+    <div class="event-wrapper">
+      <div class="event-container">
+        <app-event-card
+          *ngFor="let event of filteredUpcomingEvents"
+          [event]="event"
+          [canEditDelete]="event.creator.email === loggedInUserEmail"
+          (arrowPressed)="openEventDetails($event)"
+          (deleteEvent)="handleEventDelete($event)"
+          (editEvent)="openEditEvent($event)"
+        ></app-event-card>
+        <p *ngIf="upcomingEvents.length === 0" class="no-events-message" class="no-events-message">No upcoming events found.</p>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+</div>

@@ -1,0 +1,26 @@
+<h2 mat-dialog-title class="custom-dialog-title">Register Participants</h2>
+<h4 mat-dialog-content>Your email: {{currentUserEmail}}</h4>
+<p class="limit-message">You can choose up to {{ maxUserToChoose }} users.</p>
+
+<mat-dialog-content class="custom-dialog-content">
+  <input [(ngModel)]="searchText" placeholder="Search users" class="search-input" />
+
+  <div *ngFor="let user of filterUsers()"
+       class="user-item"
+       [class.selected]="selectedUsers.includes(user)"
+       [class.disabled]="isDisabled(user)"
+       (click)="!isDisabled(user) && toggleUserSelection(user)">
+
+    <input type="checkbox"
+           [checked]="selectedUsers.includes(user)"
+           [disabled]="isDisabled(user)"
+           (change)="$event.stopPropagation(); toggleUserSelection(user)" />
+
+    <span>{{ user.email }}</span>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions class="custom-dialog-actions">
+  <button mat-flat-button color="primary" (click)="register()" [disabled]="selectedUsers.length === 0">Register</button>
+  <button mat-button (click)="dialogRef.close()">Cancel</button>
+</mat-dialog-actions>

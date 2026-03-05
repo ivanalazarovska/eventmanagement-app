@@ -1,0 +1,68 @@
+<div class="container">
+  <h2>Најави се</h2>
+  <form *ngIf="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-control">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          type="email"
+          placeholder="Внесете e-mail"
+          formControlName="email"
+        />
+
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+          Ве молиме внесете e-mail адреса
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+          Ве молиме внесете валидна e-mail адреса
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-control">
+      <mat-form-field appearance="fill" style="width: 100%; display: flex; align-items: center;">
+        <mat-label>Лозинка</mat-label>
+        <input
+          matInput
+          type="password"
+          placeholder="Внесете лозинка"
+          formControlName="password"
+          [type]="showPassword ? 'text' : 'password'"
+          class="password-input"
+        />
+
+        <button mat-icon-button type="button" (click)="togglePasswordVisibility()">
+          <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+
+
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          Ве молиме внесете лозинка
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+          Лозинката мора да има најмалку 6 карактери
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('passwordUppercase')">
+          Лозинката мора да содржи барем една голема буква
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('passwordSpecialChar')">
+          Лозинката мора да содржи барем еден специјален карактер
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <button
+      mat-flat-button
+      type="submit"
+      class="submit-button"
+      [disabled]="loginForm.invalid"
+    >
+      Најави се
+    </button>
+
+    <div class="register-container">
+      Dont have an account? <a href="/register" class="register-link">Register Now!</a>
+    </div>
+  </form>
+</div>

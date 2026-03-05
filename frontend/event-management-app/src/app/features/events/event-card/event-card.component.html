@@ -1,0 +1,93 @@
+<div class="event-card" [class.unavailable]="event.status !== eventStatus.AVAILABLE" *ngIf="!!event">
+  <!-- Event Status Indicator -->
+  <div class="event-status"
+       [class.available]="event.status === eventStatus.AVAILABLE"
+       [class.cancelled]="event.status === eventStatus.CANCELLED"
+       [class.booked]="event.status === eventStatus.FINISHED">
+  </div>
+
+  <!-- Event Date & Time -->
+  <div class="event-date-time" *ngIf="event">
+    <ng-container *ngIf="isSameDay(event.startTime, event.endTime); else multiDay">
+      <!-- Same day: show date once and time range -->
+      <div class="event-date">
+        <div class="day">{{ event.startTime | date: 'dd' }}</div>
+        <div class="month">{{ event.startTime | date: 'MMM' }}</div>
+        <div class="month">{{ event.startTime | date: 'h:mm a' }} - {{ event.endTime | date: 'h:mm a' }}</div>
+      </div>
+    </ng-container>
+
+    <ng-template #multiDay>
+      <!-- Multi-day: show full startTime and endTime datetime -->
+       <div class="event-date-wrapper">
+        <div class="event-date">
+          startTimes On
+          <div class="day">{{ event.startTime | date: 'dd' }}</div>
+          <div class="month">{{ event.startTime | date: 'MMM' }}</div>
+          <div class="month">{{ event.startTime | date: 'h:mm a' }}</div>
+        </div>
+        <div class="event-date">
+          endTimes On
+          <div class="day">{{ event.endTime | date: 'dd' }}</div>
+          <div class="month">{{ event.endTime | date: 'MMM' }}</div>
+          <div class="month">{{ event.endTime | date: 'h:mm a' }}</div>
+        </div>
+       </div>
+    </ng-template>
+
+    <!-- Event Type below the date/time -->
+    <div class="event-type">
+      {{ event.type }}
+    </div>
+    <div>
+      {{event.creator.email}}
+    </div>
+  </div>
+
+  <div class="event-image">
+    <img  [src]="event.imageUrl" alt="Event Image" />
+  </div>
+
+  <!-- Event Details -->
+  <div class="event-content">
+    <mat-card>
+      <div>
+        <mat-card-header>
+          <mat-card-title>{{ event.name }}</mat-card-title>
+          <mat-card-subtitle>{{ event.room }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p class="event-capacity">
+              <strong>Capacity: </strong> {{ event.capacity }} <br />
+              <strong>Going: </strong> {{ event.going }} |
+              <strong>Interested: </strong> {{ event.interested }} |
+              <strong>Declined: </strong> {{ event.declined }}
+            </p>
+            <p class="event-status-info">
+              <strong>Status: </strong>
+              <span *ngIf="event.status === eventStatus.AVAILABLE; else statusTemplate" class="available">Available</span>
+              <ng-template #statusTemplate>
+                <span *ngIf="event.status === eventStatus.FINISHED" class="booked">Booked</span>
+                <span *ngIf="event.status === eventStatus.CANCELLED" class="cancelled">Cancelled</span>
+              </ng-template>
+            </p>
+        </mat-card-content>
+      </div>
+      <button mat-button (click)="onEditClick($event)" *ngIf="this.canEditDelete">
+        <span class="material-symbols-outlined">
+          edit
+        </span> Edit
+      </button>
+      <button mat-button (click)="onDeleteClick($event)" *ngIf="this.canEditDelete">
+        <span class="material-symbols-outlined">
+          delete
+        </span> Delete
+      </button>
+      <button mat-button (click)="onArrowClick($event)">
+        <span class="material-symbols-outlined">
+          arrow_forward_ios
+          </span>
+      </button>
+    </mat-card>
+  </div>
+</div>

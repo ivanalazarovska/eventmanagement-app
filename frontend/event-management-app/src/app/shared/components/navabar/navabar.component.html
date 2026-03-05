@@ -1,0 +1,39 @@
+<mat-toolbar class="navbar">
+  <div class="nav-left">
+    <!-- Logo/Icon -->
+    <button mat-icon-button class="logo-btn" aria-label="Home" routerLink="/home">
+      <img src="https://icon2.cleanpng.com/20180523/puq/kisspng-computer-icons-organization-logo-coventry-high-sch-sensory-lab-5b0572940a3a27.6884089015270836680419.jpg">
+    </button>
+
+    <button mat-button routerLink="/events-calendar" routerLinkActive="active-link">
+    <mat-icon>calendar_today</mat-icon>
+    <span>Calendar</span>
+    </button>
+
+    <!-- Navigation Buttons -->
+    <button mat-button routerLink="/events" routerLinkActive="active-link">
+      <mat-icon>event_note</mat-icon>
+      <span>Events</span>
+    </button>
+
+    <button mat-button routerLink="/contact" routerLinkActive="active-link">
+      <mat-icon>support_agent</mat-icon>
+      <span>Contact</span>
+    </button>
+
+    <button mat-button routerLink="/about" routerLinkActive="active-link">
+      <mat-icon>info</mat-icon>
+      <span>About</span>
+    </button>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- Right Side -->
+  <div class="nav-right">
+    <button mat-raised-button color="accent" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
+  </div>
+</mat-toolbar>

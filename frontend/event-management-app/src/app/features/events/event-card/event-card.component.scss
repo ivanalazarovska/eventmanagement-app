@@ -1,0 +1,145 @@
+@use '../../../../my-theme.scss' as my-theme;
+
+.event-card {
+  display: flex;
+  border-radius: 8px;
+  background-color: my-theme.$card-background; // e.g. light green or white
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 180px;
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  &.unavailable {
+    background-color: my-theme.$warn-color; // e.g. theme red
+  }
+
+  .event-type {
+    margin-top: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: my-theme.$text-secondary; // use your gray from theme
+    text-transform: capitalize;
+    font-style: italic;
+    letter-spacing: 0.5px;
+  }
+
+  .event-image {
+    width: auto;
+    height: 180px;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .event-status {
+    width: 5px;
+    height: 100%;
+    margin-right: 10px;
+    border-radius: 4px;
+    background-color: my-theme.$divider-color;
+
+    &.available {
+      background-color: my-theme.$primary-green; // highlight green
+    }
+
+    &.cancelled {
+      background-color: my-theme.$warn-color-light; // red tone
+    }
+  }
+
+  .event-status-info {
+    span {
+      font-weight: bold;
+
+      &.available {
+        color: my-theme.$primary-green;
+      }
+
+      &.cancelled {
+        color: my-theme.$warn-color;
+      }
+    }
+  }
+
+  .event-date-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .event-date {
+    margin-right: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .day {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .month {
+      font-size: 1rem;
+      color: my-theme.$text-secondary;
+    }
+  }
+
+  .event-content {
+    flex: 1;
+    margin-left: -0.5rem;
+
+    mat-card {
+      background-color: my-theme.$card-background;
+      height: 100%;
+      border-radius: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      mat-card-header {
+        display: flex;
+        align-items: center;
+
+        mat-card-avatar {
+          margin-right: 10px;
+        }
+      }
+
+      button {
+        height: 100%;
+        border-radius: 0;
+      }
+
+      .mat-card-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: my-theme.$text-primary;
+      }
+
+      .mat-card-subtitle {
+        font-size: 0.9rem;
+        color: my-theme.$text-secondary;
+      }
+
+      .event-time,
+      .event-capacity {
+        font-size: 0.85rem;
+        margin: 5px 0;
+        color: my-theme.$text-secondary;
+      }
+
+      .event-description {
+        margin-top: 10px;
+        font-size: 0.85rem;
+        color: my-theme.$text-primary;
+      }
+    }
+  }
+}

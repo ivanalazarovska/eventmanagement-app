@@ -1,0 +1,87 @@
+.container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+mat-label {
+  font-weight: bold;
+}
+
+mat-input-element {
+  padding: 10px;
+  flex-grow: 1;
+}
+
+button[mat-icon-button] {
+  position: absolute;
+  right: 10px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+button[mat-icon-button] mat-icon {
+  font-size: 20px;
+}
+
+.submit-button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+  cursor: pointer;
+}
+
+mat-error {
+  font-size: 12px;
+  color: #f44336;
+}
+
+/* Styling for the container */
+.register-container {
+  font-size: 16px;
+  color: #333; /* Dark gray text for the div */
+  font-family: Arial, sans-serif;
+  margin-top: 20px; /* Some spacing at the top */
+}
+
+/* Styling for the anchor (link) */
+.register-link {
+  text-decoration: none; /* Remove the underline */
+  color: #007BFF; /* Set the text color to blue */
+  font-weight: bold; /* Make the text bold */
+  cursor: pointer; /* Change the cursor to a pointer on hover */
+}
+
+/* Change color and underline when hovered */
+.register-link:hover {
+  color: #0056b3; /* Darker blue on hover */
+  text-decoration: underline; /* Underline the link on hover */
+}

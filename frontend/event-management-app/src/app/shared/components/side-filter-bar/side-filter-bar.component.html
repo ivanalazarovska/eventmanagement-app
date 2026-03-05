@@ -1,0 +1,25 @@
+<div class="side-filters">
+
+  <!-- Event Type Filter -->
+  <h3>Filter by Type</h3>
+  <section class="event-filter-section">
+    <mat-checkbox
+      class="event-type-checkbox"
+      [checked]="allEventTypesSelected"
+      [indeterminate]="someEventTypesSelected"
+      (change)="toggleAllEventTypes($event.checked)">
+      Select All
+    </mat-checkbox>
+    <ul>
+      <li *ngFor="let type of eventTypes">
+        <mat-checkbox
+          [checked]="selectedEventTypes[type]"
+          (change)="toggleEventType(type, $event.checked)">
+          {{ type }}
+        </mat-checkbox>
+      </li>
+    </ul>
+  </section>
+
+  <hr>
+</div>

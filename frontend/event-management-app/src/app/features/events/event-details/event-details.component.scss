@@ -1,0 +1,322 @@
+@use '../../../../my-theme.scss' as *;
+
+.event-details-wrapper {
+  animation: fadeIn 0.6s ease;
+  font-family: 'Segoe UI', sans-serif;
+  color: #2b160e;
+
+  .stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 1.5rem;
+    color: #4d251c;
+
+    .filled {
+      color: #fbc02d;
+    }
+
+    .average {
+      margin-left: 0.5rem;
+      font-size: 1rem;
+      color: #4d251c;
+    }
+  }
+
+  .hero {
+    position: relative;
+    height: 380px;
+    overflow: hidden;
+    border-radius: 1rem;
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.6);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+      padding: 2rem;
+      color: white;
+
+      h1 {
+        font-size: 2.8rem;
+        margin: 0;
+      }
+
+      p {
+        font-size: 1.2rem;
+        margin: 0.5rem 0;
+      }
+
+      .chips {
+        display: flex;
+        gap: 0.5rem;
+
+        .chip {
+          padding: 0.3rem 0.8rem;
+          font-size: 0.85rem;
+          font-weight: 600;
+          border-radius: 999px;
+          text-transform: uppercase;
+
+          &.available {
+            background-color: $accent-green-light;
+            color: $primary-green;
+          }
+
+          &.booked {
+            background-color: lighten($accent-green, 30%);
+            color: darken($accent-green, 40%);
+
+          }
+
+          &.cancelled {
+            background-color: $warn-color-light;
+            color: $warn-color;
+          }
+
+          &.type {
+            background-color: lighten($accent-green, 20%);
+            color: $primary-green;
+          }
+        }
+      }
+    }
+  }
+
+  .description {
+    margin: 2rem 0;
+
+    h2 {
+      font-size: 1.75rem;
+      color: $primary-green;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #4d251c;
+    }
+  }
+
+  .key-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+
+    .info-box {
+      background: linear-gradient(to right, $warn-color-light, $accent-green-light);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba($accent-green, 0.1);
+      text-align: center;
+
+      h3 {
+        color: $primary-green;
+        margin-bottom: 0.4rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #4d251c;
+      }
+    }
+  }
+
+  .engagement {
+    margin-bottom: 2rem;
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+      color: $primary-green;
+    }
+
+    .engagement-stats {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-start;
+
+      .stat {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: $accent-green-light;
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+        min-width: 120px;
+
+        .icon {
+          font-size: 1.5rem;
+
+          &.going {
+            color: $accent-green;
+          }
+
+          &.interested {
+            color: lighten($accent-green, 20%);
+          }
+
+          &.declined {
+            color: $warn-color;
+          }
+        }
+
+        .label {
+          font-size: 0.9rem;
+          color: $primary-green;
+          margin: 0;
+        }
+
+        .value {
+          font-size: 1.1rem;
+          font-weight: bold;
+          color: #370e00;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .not-found {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 5rem;
+    color: $warn-color;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.action-buttons {
+  margin-bottom: 2rem;
+
+  h2 {
+    font-size: 1.3rem;
+    color: $primary-green;
+    margin-bottom: 0.8rem;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 1rem;
+
+    .btn {
+      border: none;
+      border-radius: 20px;
+      padding: 0.6rem 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background-color: $accent-green-light;
+      color: $primary-green;
+
+      &.going.active {
+        background-color: $accent-green;
+        color: white;
+      }
+
+      &.interested.active {
+        background-color: lighten($accent-green, 15%);
+        color: white;
+      }
+
+      &.declined.active {
+        background-color: $warn-color;
+        color: white;
+      }
+
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+}
+
+.comments {
+  margin-top: 2rem;
+
+  h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    color: $primary-green;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: inherit;
+      resize: vertical;
+    }
+
+    button {
+      align-self: flex-end;
+      background-color: $accent-green;
+      color: white;
+      padding: 0.5rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+
+      &:hover {
+        background-color: darken($accent-green, 10%);
+      }
+    }
+  }
+
+  .comment-list {
+    margin-top: 1rem;
+    max-height: 250px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .comment {
+      background: $accent-green-light;
+      border-left: 4px solid $accent-green;
+      padding: 0.8rem;
+      border-radius: 6px;
+
+      .user {
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+
+      .text {
+        margin: 0;
+        color: #333;
+      }
+    }
+  }
+}
