@@ -1,2 +1,2 @@
-# EventManagementSystem
-Team project 2024/25
+## Team Project
+This project was developed collaboratively as part of a university assignment.
